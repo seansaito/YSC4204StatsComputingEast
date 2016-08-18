@@ -55,12 +55,12 @@ prod = merge(b0, b1) # Cartesian product of b0 and b1
 z <- matrix(apply(prod, 1, rss), nrow=length(b0), ncol=length(b1))
 
 # Plot persp
-persp(b0, b1, z, theta=120, phi=5, xlab="Intercept", 
+persp(b0, b1, z, theta=30, phi=20, xlab="Intercept", 
       ylab="Slope", zlab="RSS", ticktype="detailed",
       expand=1.0)
 
 # 1 (e)
 # Contour plots
-contour(b0, b1, z, xlab="Intercept", ylab="Slope", main="Countour of Intercept, Slope, and RSS")
+contour(b0, b1, z, xlab="Intercept", ylab="Slope", main="Contour of Intercept, Slope, and RSS")
 # Plot the best combination
 points(fit$coefficients[1], fit$coefficients[2], pch=20, col="red")
