@@ -71,8 +71,7 @@ points(fit$coefficients[1], fit$coefficients[2], pch=20, col="red")
 
 #### Problem 2 - Code first, Comment Later
 
-example <- seq(-10, 10, 0.001)
-
+# 2 (a)
 taylorLoop <- function (n, x) {
   if (n < 1 || length(x) == 0 ){
     print("Either n or x is an invalid parameter")
@@ -90,6 +89,7 @@ taylorLoop <- function (n, x) {
   return(output)
 }
 
+# 2(b)
 taylorVect <- function (n, x){
   if (n < 1 || length(x) == 0 ){
     print("Either n or x is an invalid parameter")
@@ -98,18 +98,22 @@ taylorVect <- function (n, x){
   return(unlist(lapply(x, function(a) sum((a ^ (0:n)) / factorial(0:n)))))
 }
 
+# 2(c)
+example <- seq(-10, 10, 0.001)
 system.time(taylorLoop(10, example))
 system.time(taylorVect(10, example))
 
+# 2(d)
+# Compute S_nx
 snx_vect <- function(n, x)
   (sum(unlist(lapply(c(0:n), function(j) ((factorial((2*n)-j)*factorial(n))*(x^j))/(factorial(2*n)*factorial(j)*factorial(n-j))))))
 
+# Apply over x
 pade <- function(n, x) {
   return(unlist(lapply(x, function(xval) (snx_vect(n, xval)/snx_vect(n, 0-xval)))))
 }
 
-## Graphing
-
+# 2(e)
 taylor10 <- function(x) taylorVect(10, x)
 pade10 <- function(x) pade(10, x)
 
@@ -119,3 +123,10 @@ ggplot(data.frame(x = c(-10, 10)), aes(x)) +
     stat_function(fun=pade10, aes(colour="pade")) + 
     scale_y_log10()
 
+# 2 (f)
+system.time(taylorLoop(10, example))
+system.time(taylorVect(10, example))
+system.time(pade(10, example))
+
+# 2(g)
+# Fill this in once the implementation of 2(a) is verified
