@@ -64,3 +64,47 @@ persp(b0, b1, z, theta=30, phi=20, xlab="Intercept",
 contour(b0, b1, z, xlab="Intercept", ylab="Slope", main="Contour of Intercept, Slope, and RSS")
 # Plot the best combination
 points(fit$coefficients[1], fit$coefficients[2], pch=20, col="red")
+
+
+#### Problem 2 - Code first, Comment Later
+
+example <- seq(-10, 10, 0.001)
+
+taylorLoop <- function (n, x) {
+  if (n < 1 || length(x) == 0 ){
+    print("Either n or x is an invalid parameter")
+    break
+  }
+  output <- numeric(0)  # Setting up the output vector
+  for (a in x){   # Outer for loop iterating over x
+    
+    result <- 0   # Setting up the summation
+    for (j in 0:n ){
+      result <- result + (a^j / factorial(j))
+    }
+    output <- c(output, result)    #Concatenate the result to the output vector
+  }
+  return(output)
+}
+
+taylorVect <- function (n, x){
+  if (n < 1 || length(x) == 0 ){
+    print("Either n or x is an invalid parameter")
+    break
+  }
+  return(unlist(lapply(x, function(a) sum((a ^ (0:n)) / factorial(0:n)))))
+}
+
+system.time(taylorLoop(10, example))
+system.time(taylorVect(10, example))
+
+snx_vect <- function(n, x)
+  (sum(unlist(lapply(c(0:n), function(j) ((factorial((2*n)-j)*factorial(n))*(x^j))/(factorial(2*n)*factorial(j)*factorial(n-j))))))
+
+pade <- function(n, x) {
+  return(unlist(lapply(x, function(xval) (snx_vect(n, xval)/snx_vect(n, 0-xval)))))
+}
+
+## Graphing
+
+
