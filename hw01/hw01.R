@@ -5,6 +5,9 @@
 # Hrishi Olickel
 # Han Chong
 
+#imports
+require(ggplot2)
+
 # Automatically sets working directory to source file location
 this.dir <- dirname(parent.frame(2)$ofile)
 setwd(this.dir)
@@ -107,4 +110,12 @@ pade <- function(n, x) {
 
 ## Graphing
 
+taylor10 <- function(x) taylorVect(10, x)
+pade10 <- function(x) pade(10, x)
+
+ggplot(data.frame(x = c(-10, 10)), aes(x)) + 
+    stat_function(fun = exp, aes(colour="exp")) +
+    stat_function(fun = taylor10, aes(colour="taylor")) +
+    stat_function(fun=pade10, aes(colour="pade")) + 
+    scale_y_log10()
 
