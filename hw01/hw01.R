@@ -115,11 +115,13 @@ pade <- function(n, x) {
 
 # 2(e)
 taylor10 <- function(x) taylorVect(10, x)
+taylor100 <- function(x) taylorVect(100, x)
 pade10 <- function(x) pade(10, x)
 
 ggplot(data.frame(x = c(-10, 10)), aes(x)) + 
     stat_function(fun = exp, aes(colour="exp")) +
-    stat_function(fun = taylor10, aes(colour="taylor")) +
+#    stat_function(fun = taylor10, aes(colour="taylor")) +
+    stat_function(fun = taylor100, aes(colour="taylor100")) +
     stat_function(fun=pade10, aes(colour="pade")) + 
     scale_y_log10()
 
@@ -129,4 +131,29 @@ system.time(taylorVect(10, example))
 system.time(pade(10, example))
 
 # 2(g)
-# Fill this in once the implementation of 2(a) is verified
+# Pade is the most accurate representation, but taylor is much faster. 
+# However, let's first test this assumption (Graph2.png)- 
+
+# Code below to generate graph2 (takes a while)
+# xval <- seq(1,100,1)
+# padeY <- unlist(lapply(xval, function(x) as.double(system.time(pade(x, c(10:100)))[3])))
+# taylorY <- unlist(lapply(xval, function(x) as.double(system.time(taylorVect(x, c(10:100)))[3])))
+# ggplot(data.frame(x=xval, tY=taylorY, pY=padeY), aes(x))+geom_line(aes(y=tY, color='taylor')) + 
+#  geom_line(aes(y=pY, color='pade')) + ggtitle('Runtime against n - pade and taylor')
+
+# From the curve we can see that taylor is much faster than pade, even for high values of n.
+# but what about accuracy? Let's try graphing higher values of n for taylor. (Graph3)
+
+# Code below to generate graph3 (also takes a little while, but not long)
+# ggplot(data.frame(x = c(-10, 10)), aes(x)) + stat_function(fun = exp, aes(colour="exp"))+
+#  stat_function(fun = function (x) taylorVect(10, x), aes(color="10")) +
+#  stat_function(fun = function (x) taylorVect(20, x), aes(color="20")) +
+#  stat_function(fun = function (x) taylorVect(30, x), aes(color="30")) +
+#  stat_function(fun = function (x) taylorVect(40, x), aes(color="40")) +
+#  stat_function(fun = function (x) taylorVect(50, x), aes(color="50")) +
+#  stat_function(fun = function (x) taylorVect(60, x), aes(color="60")) +
+#  scale_y_log10() + ggtitle('Values of exp and taylor(n=10-60)')
+
+# Taylor is the better choice. By using higher values of n depending on the value of x,
+# we can still provide fast results without sacrificing accuracy.
+# Taylor is a better choice for industry, but pade is a better solution for smaller datasets.
