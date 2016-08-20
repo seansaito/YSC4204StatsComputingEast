@@ -50,17 +50,21 @@ rss = function(row) {
 }
 
 # Generate of vector of intercepts and slopes
-b0 <- seq(1, 120)
-b1 <- seq(0.11, 0.18, length=50)
+b0 <- seq(1, 120,3)
+b1 <- seq(0.11, 0.18, length=40)
 
 # Compute rss for all (b0, b1)
 prod = merge(b0, b1) # Cartesian product of b0 and b1
 z <- matrix(apply(prod, 1, rss), nrow=length(b0), ncol=length(b1))
 
+# Prepare a matrix of colors scaled to the RSS value, to use in the plot
+alphas <- (z-min(z))/(max(z)-min(z))
+colors <- rgb(matrix(1,40,40),matrix(0,40,40),matrix(0,40,40),alphas)
+
 # Plot persp
-persp(b0, b1, z, theta=30, phi=20, xlab="Intercept", 
+persp(b0, b1, z, theta=65, phi=10, xlab="Intercept",
       ylab="Slope", zlab="RSS", ticktype="detailed",
-      expand=1.0)
+      expand=0.5,col=colors)
 
 # 1 (e)
 # Contour plots
