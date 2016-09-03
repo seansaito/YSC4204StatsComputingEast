@@ -59,6 +59,37 @@ pythag2 <- function(a, b) {
   return(sqrt(a^2 + b^2))
 }
 
+# Problem 3 - Inverse Transform Methdd
+
+# Define the standard laplacian pdf
+laplacian_pdf <- function (x){
+  return(0.5 * exp(-abs(x)))
+}
+
+# Define the laplacian cdf (not used)
+laplacian_cdf <- function (x){
+  return(ifelse(x < 0, 0.5*exp(x), 1 - 0.5*exp(-x)))
+}
+
+# Define the inverse transform of the laplacian cdf
+inv_trf <- function (x){
+  return(ifelse(x < 0.5, log(2*x), -log(2 - 2*x)))
+}
+
+# Generate the random sample
+result <- inv_trf(runif(10000))
+
+# Graph the sample
+hist(result, probability = TRUE, breaks = 100,
+     xlim = c(-5, 5), ylim = c(0,0.5))
+
+# Overlay the line
+x <- seq(-5,5,0.1)
+y <- laplacian_pdf(x)
+lines(x,y,col = "red")
+
+
+
 # Problem 4 - Rayleigh Distribution
 
 ## Define function to generate Rayleigh random variables ##
