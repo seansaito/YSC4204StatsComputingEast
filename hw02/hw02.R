@@ -73,7 +73,9 @@ set.seed(0)
 
 ########## simga = 0.5 ##########
 x1 <- rray(10000,0.5)
-hist(x1,prob=TRUE,main="Generated rayleigh random variables with sigma=0.5") # plot the histogram
+hist(x1,prob=TRUE,
+     main="Generated rayleigh random variables with sigma=0.5",
+     xlab="x") # plot the histogram
 
 ## Superimpose a density line ##
 xlines1 <- seq(0,round(max(x1)),0.01)
@@ -82,7 +84,9 @@ lines(xlines1,ylines1)
 
 ########## sigma = 2 ##########
 x2 <- rray(10000,2)
-hist(x2,prob=TRUE,main="Generated rayleigh random variables with sigma=2") # plot the histogram
+hist(x2,prob=TRUE,
+     main="Generated rayleigh random variables with sigma=2",
+     xlab="x") # plot the histogram
 
 ## Superimpose a density line ##
 xlines2 <- seq(0,round(max(x2)),0.01)
