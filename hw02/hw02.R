@@ -59,4 +59,68 @@ pythag2 <- function(a, b) {
   return(sqrt(a^2 + b^2))
 }
 
-# Example of pythag2 not working
+# Problem 3 - Inverse Transform Methdd
+
+# Define the standard laplacian pdf
+laplacian_pdf <- function (x){
+  return(0.5 * exp(-abs(x)))
+}
+
+# Define the laplacian cdf (not used)
+laplacian_cdf <- function (x){
+  return(ifelse(x < 0, 0.5*exp(x), 1 - 0.5*exp(-x)))
+}
+
+# Define the inverse transform of the laplacian cdf
+inv_trf <- function (x){
+  return(ifelse(x < 0.5, log(2*x), -log(2 - 2*x)))
+}
+
+# Generate the random sample
+result <- inv_trf(runif(10000))
+
+# Graph the sample
+hist(result, probability = TRUE, breaks = 100,
+     xlim = c(-5, 5), ylim = c(0,0.5))
+
+# Overlay the line
+x <- seq(-5,5,0.1)
+y <- laplacian_pdf(x)
+lines(x,y,col = "red")
+
+
+
+# Problem 4 - Rayleigh Distribution
+
+## Define function to generate Rayleigh random variables ##
+rray <- function(n,sigma){
+  u <- runif(n)
+  output <- sqrt(-2*sigma^2*log(u))
+  return(output)
+}
+
+## Set seed to ensure consistency before generating numbers and plotting ##
+set.seed(0)
+
+########## simga = 0.5 ##########
+x1 <- rray(10000,0.5)
+hist(x1,prob=TRUE,
+     ylim=c(0,1.3), # extend the y-axis so that the density line will not be cut off
+     main="Generated rayleigh random variables with sigma=0.5",
+     xlab="x") # plot the histogram
+
+## Overlay a density line ##
+xlines1 <- seq(0,round(max(x1)),0.01)
+ylines1 <- (xlines1/0.5^2)*exp(-xlines1^2/(2*(0.5^2)))
+lines(xlines1,ylines1)
+
+########## sigma = 2 ##########
+x2 <- rray(10000,2)
+hist(x2,prob=TRUE,
+     main="Generated rayleigh random variables with sigma=2",
+     xlab="x") # plot the histogram
+
+## Overlay a density line ##
+xlines2 <- seq(0,round(max(x2)),0.01)
+ylines2 <- (xlines2/2^2)*exp(-xlines2^2/(2*(2^2)))
+lines(xlines2,ylines2)
