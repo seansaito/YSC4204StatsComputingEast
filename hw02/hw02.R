@@ -68,8 +68,8 @@ pythag(x,y) # returns 5e200
 # Now try these values
 x = 3e-200
 y = 4e-200
-> pythag2(x,y) # returns 0
-> pythag(x,y) # returns 5e-200
+pythag2(x,y) # returns 0
+pythag(x,y) # returns 5e-200
 
 # ANSWER: The reasons pythag2() fails is likely due to an overflow or underflow in the intermediary results
 
