@@ -127,7 +127,22 @@ Question 3 here
 Suppose $x \sim$ Rayleigh($\sigma$). The Rayleigh probability density function is
 $$ f(x) = \frac{x}{\sigma^2}e^{-x^2/(2\sigma^2)}, \hspace{0.5cm} x \geq 0, \sigma >0.$$
 The cumulative distribution function is
-$$ F(x) = 1 - e^{-x^2/(2\sigma^2)} \text{ for } x \in [0,\infty).$$
+\begin{align*}
+F_X(x) = \int \frac{x}{\sigma^2}e^{-x^2/(2\sigma^2)} dx,\\
+\end{align*}
+Let $u = -x^2/(2\sigma^2)$,
+\begin{align*}
+\frac{du}{dx} &= \frac{-x}{\sigma^2},\\
+du &= \frac{-x}{\sigma^2}dx.
+\end{align*}
+By substitution,
+\begin{align*}
+F_X(x) &= \int -e^u du,\\
+&= -e^u + c,\\
+&= -e^{-x^2/(2\sigma^2)} + c.
+\end{align*}
+Observe that when $x=1, F_X(x)=0$. Therefore $c=1$. Thus, we have the cumulative distribution for the Rayleigh distribution,
+$$ F_X(x) = 1 - e^{-x^2/(2\sigma^2)} \hspace{0.5cm} \text{ for } x \in [0,\infty).$$
 We derive $F^{-1}_X(x)$ as follows:
 \begin{align*}
 y &= 1 - e^{-x^2/(2\sigma^2)},\\
