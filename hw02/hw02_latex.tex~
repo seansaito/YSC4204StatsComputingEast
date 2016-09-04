@@ -125,7 +125,7 @@ q^2 &= -2p^2 + qc.\\
 c &= \frac{q^2+2p^2}{q}.\\
 \Rightarrow y_2 &= \frac{-2p}{q}x + \frac{q^2 + 2p^2}{q}.
 \end{align*}
-We need to find the intersection of $y_1$ and $y_2$, so we set $y_1 = y_2$.
+We need to find the midpoint of $y_1$ and $y_2$, so we set $y_1 = y_2$.
 \begin{align*}
 \frac{qx}{2p} &= \frac{-2px}{q} + \frac{q^2+2p^2}{q},\\
 q^2x+4p^2x &= 2pq^2 +4p^3,\\
