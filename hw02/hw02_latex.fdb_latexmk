@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1473003023 "hw02_latex.tex" "hw02_latex.pdf" "hw02_latex" 1473003024
+["pdflatex"] 1473003414 "hw02_latex.tex" "hw02_latex.pdf" "hw02_latex" 1473003415
   "/Users/hrishioa/Library/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1470854248 1897991 fa312b57297b39658f2dce821e65a149 ""
   "/usr/local/texlive/2016/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2016/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -149,13 +149,13 @@
   "/usr/local/texlive/2016/texmf-dist/web2c/texmf.cnf" 1463093894 31953 b9489e6e586f798610c60aec1f5ec548 ""
   "/usr/local/texlive/2016/texmf-var/web2c/pdftex/pdflatex.fmt" 1470599824 3873396 644344f5871c3a5f3ef8725fd845507a ""
   "/usr/local/texlive/2016/texmf.cnf" 1463979140 577 2938757e76f31531e65cc647e3507693 ""
-  "hw02_latex.aux" 1473003024 798 120527c3c5e2e10297719b66b6447ed4 ""
-  "hw02_latex.out" 1473003024 0 d41d8cd98f00b204e9800998ecf8427e ""
-  "hw02_latex.tex" 1473002985 8717 19c761a32fd2ba748e4d3a9e2ba07ba2 ""
+  "hw02_latex.aux" 1473003415 798 120527c3c5e2e10297719b66b6447ed4 ""
+  "hw02_latex.out" 1473003415 0 d41d8cd98f00b204e9800998ecf8427e ""
+  "hw02_latex.tex" 1473003411 10791 0dc1ec50423c0c20876e1d9b9ec3006d ""
   "rayleigh_0_5.png" 1472980488 9392 4424cf7af2b9c7517f68415d33fd74e9 ""
   "rayleigh_2.png" 1472980488 10006 e44530d8f9577c08c75ddc622c2d1c18 ""
   (generated)
-  "hw02_latex.log"
-  "hw02_latex.out"
   "hw02_latex.pdf"
   "hw02_latex.aux"
+  "hw02_latex.out"
+  "hw02_latex.log"
