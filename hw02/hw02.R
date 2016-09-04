@@ -35,12 +35,12 @@ pythag <- function(a, b) {
   absb <- abs(b)
   p <- pmax(absa, absb)
   q <- absa + absb - p
-  for (k in seq_len(3)) f
-  r <- (q/p) ^ 2
-  s <- r / (4 + r)
-  p <- p * (1 + 2*s)
-  q <- q * s
-  g
+  for (k in seq_len(3)) {
+    r <- (q/p) ^ 2
+    s <- r / (4 + r)
+    p <- p * (1 + 2*s)
+    q <- q * s
+  }
   p <- ifelse (a==0.0 & b==0.0, 0.0, p)
   return(p)
 }
@@ -50,7 +50,7 @@ pythag <- function(a, b) {
 # is the radius of the circle. Hence the intersection between the x-axis and the circle is our target value.
 # What the algorithm does is to update p0 every iteration such that it gets closer to the intercept.
 
-## MORE EXPLANATION NEEDED
+## MORE EXPLANATION NEEDED FOR ALGORITHMIC STEPS
 
 # (b)
 pythag2 <- function(a, b) {
@@ -58,3 +58,5 @@ pythag2 <- function(a, b) {
     stop("ERROR: pythag2() needs numeric input.")
   return(sqrt(a^2 + b^2))
 }
+
+# Example of pythag2 not working
