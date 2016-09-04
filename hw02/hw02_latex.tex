@@ -141,7 +141,7 @@ y &= \frac{q}{2px},\\
 \end{align*}
 Now we need to find $(p_1,q_1)$. We know that the distance from $(p_0,q_0)$ to the midpoint is equal to the distance from the midpoint to $(p_1,q_1)$. Breaking it into components:
 \begin{align*}
-p_1 &= p_0 + 2(p_2-p+0), \hspace{0.5cm} \text{where } p_2 \text{ is the } x \text{-coordinate of the mid point}\\
+p_1 &= p_0 + 2(p_2-p_0), \hspace{0.5cm} \text{where } p_2 \text{ is the } x \text{-coordinate of the mid point}\\
 &= 2p_2 - p_0.
 \end{align*}
 Similarly, $q_1 = 2q_2 - q_0$.
@@ -168,7 +168,7 @@ q_1&= 2q_2 - q_0,\\
 &= q \cdot s .
 \end{align*}
 
-We've just shown that $(p_1, q_1)$ are the same as the values of $p$ and $q$ after the $k=1$ iteration of the loop. Since both points lie on the circle, $\sqrt{p_1^2+q_1^2} = \sqrt{a^2,b^2}$. Hence we can consider this to be the loop invariant. For each iteration, the line from $(0,0)$ to $(p_k, q_k)$ remains on the circle while moving towards the x axis. This means $$\lim_{k\to\infty}q_k = 0 \Rightarrow \lim_{k\to\infty}p_k = \sqrt{a^2,b^2}$$. This becomes true when $q_k$ becomes insignificant. In practice however, 3 iterations are necessary to approach decent accuracy, hence the limit of $k=3$.
+We've just shown that $(p_1, q_1)$ are the same as the values of $p$ and $q$ after the $k=1$ iteration of the loop. Since both points lie on the circle, $\sqrt{p_1^2+q_1^2} = \sqrt{a^2+b^2}$. Hence we can consider this to be the loop invariant. For each iteration, the line from $(0,0)$ to $(p_k, q_k)$ remains on the circle while moving towards the x axis. This means $$\lim_{k\to\infty}q_k = 0 \Rightarrow \lim_{k\to\infty}p_k = \sqrt{a^2+b^2}.$$ This becomes true when $q_k$ becomes insignificant. In practice however, 3 iterations are necessary to approach decent accuracy, hence the limit of $k=3$.
 \\
 %b
 \item 
