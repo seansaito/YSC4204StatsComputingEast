@@ -50,7 +50,7 @@ pythag <- function(a, b) {
 # is the radius of the circle. Hence the intersection between the x-axis and the circle is our target value.
 # What the algorithm does is to update p0 every iteration such that it gets closer to the intercept.
 
-## MORE EXPLANATION NEEDED FOR ALGORITHMIC STEPS
+## FULL EXPLANATION IS IN THE PDF
 
 # (b)
 pythag2 <- function(a, b) {
@@ -58,6 +58,20 @@ pythag2 <- function(a, b) {
     stop("ERROR: pythag2() needs numeric input.")
   return(sqrt(a^2 + b^2))
 }
+
+# Try these values
+x = 3e200
+y = 4e200
+pythag2(x,y) # returns Inf
+pythag(x,y) # returns 5e200
+
+# Now try these values
+x = 3e-200
+y = 4e-200
+> pythag2(x,y) # returns 0
+> pythag(x,y) # returns 5e-200
+
+# ANSWER: The reasons pythag2() fails is likely due to an overflow or underflow in the intermediary results
 
 # Problem 3 - Inverse Transform Methdd
 
