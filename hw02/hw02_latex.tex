@@ -168,8 +168,27 @@ q_1&= 2q_2 - q_0,\\
 &= q \cdot s .
 \end{align*}
 %b
-\item y is dis so hard?
+\item 
 
+There are two cases where \textbf{pythag2} fails and \textbf{pythag} works:
+
+\begin{lstlisting}[language=R]
+x = 3e200
+y = 4e200
+pythag2(x,y)
+> [1] Inf
+pythag(x,y)
+> [1] 5e200
+x = 3e-200
+y = 4e-200
+> pythag2(x,y)
+[1] 0
+> pythag(x,y)
+[1] 5e-200
+\end{lstlisting}
+
+The reason \textbf{pythag2} fails while \textbf{pythag} runs is due to possible overflow and underflow generated in the intermediate result of $x^2+y^2$. For extremely large and small numbers, this value will limit the possible inputs of $x$ and $y$ to a range smaller than that of allowed by the floating points being used. \textbf{pythag} prevents this by iteratively approximating the value, where $p$ approaches the result. 
+\\
 \end{enumerate}
 %3
 \item
@@ -222,8 +241,8 @@ set.seed(0)
 ########## simga = 0.5 ##########
 x1 <- rray(10000,0.5)
 hist(x1,prob=TRUE,
-     main="Generated rayleigh random variables with sigma=0.5",
-     xlab="x") # plot the histogram
+ main="Generated rayleigh random variables with sigma=0.5",
+ xlab="x") # plot the histogram
 
 ## Superimpose a density line ##
 xlines1 <- seq(0,round(max(x1)),0.01)
@@ -233,8 +252,8 @@ lines(xlines1,ylines1)
 ########## sigma = 2 ##########
 x2 <- rray(10000,2)
 hist(x2,prob=TRUE,
-     main="Generated rayleigh random variables with sigma=2",
-     xlab="x") # plot the histogram
+ main="Generated rayleigh random variables with sigma=2",
+ xlab="x") # plot the histogram
 
 ## Superimpose a density line ##
 xlines2 <- seq(0,round(max(x2)),0.01)
