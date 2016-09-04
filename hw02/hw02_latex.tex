@@ -167,6 +167,9 @@ q_1&= 2q_2 - q_0,\\
 &= q \cdot \bigg( \frac{r}{4+r} \bigg) ,\\
 &= q \cdot s .
 \end{align*}
+
+We've just shown that $(p_1, q_1)$ are the same as the values of $p$ and $q$ after the $k=1$ iteration of the loop. Since both points lie on the circle, $\sqrt{p_1^2+q_1^2} = \sqrt{a^2,b^2}$. Hence we can consider this to be the loop invariant. For each iteration, the line from $(0,0)$ to $(p_k, q_k)$ remains on the circle while moving towards the x axis. This means $$\lim_{k\to\infty}q_k = 0 \Rightarrow \lim_{k\to\infty}p_k = \sqrt{a^2,b^2}$$. This becomes true when $q_k$ becomes insignificant. In practice however, 3 iterations are necessary to approach decent accuracy, hence the limit of $k=3$.
+\\
 %b
 \item 
 

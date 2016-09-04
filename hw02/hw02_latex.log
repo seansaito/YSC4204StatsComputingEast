@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.8.8)  4 SEP 2016 23:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.8.8)  4 SEP 2016 23:30
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -990,51 +990,53 @@ tex.map}]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 190--192
+Underfull \hbox (badness 10000) in paragraph at lines 171--175
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 193--195
 
  []
 
 [3] <rayleigh_0_5.png, id=90, 785.18344pt x 526.96875pt>
 File: rayleigh_0_5.png Graphic file (type png)
 <use rayleigh_0_5.png>
-Package pdftex.def Info: rayleigh_0_5.png used on input line 264.
+Package pdftex.def Info: rayleigh_0_5.png used on input line 267.
 (pdftex.def)             Requested size: 471.11371pt x 316.18369pt.
 <rayleigh_2.png, id=91, 785.18344pt x 526.96875pt>
 File: rayleigh_2.png Graphic file (type png)
 <use rayleigh_2.png>
-Package pdftex.def Info: rayleigh_2.png used on input line 265.
+Package pdftex.def Info: rayleigh_2.png used on input line 268.
 (pdftex.def)             Requested size: 471.11371pt x 316.18369pt.
 
-Overfull \hbox (52.92365pt too wide) in paragraph at lines 263--266
+Overfull \hbox (52.92365pt too wide) in paragraph at lines 266--269
 []
  []
 
 
-Overfull \hbox (52.92365pt too wide) in paragraph at lines 263--266
+Overfull \hbox (52.92365pt too wide) in paragraph at lines 266--269
 [] 
  []
 
-
-Underfull \vbox (badness 4634) has occurred while \output is active []
-
 [4] [5 <./rayleigh_0_5.png> <./rayleigh_2.png>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 267.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 267.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 270.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 270.
 (./hw02_latex.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 267.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 267.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 270.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 270.
 Package rerunfilecheck Info: File `hw02_latex.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 267.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 270.
  ) 
 Here is how much of TeX's memory you used:
  19698 strings out of 493014
  344179 string characters out of 6133352
- 555468 words of memory out of 5000000
+ 555553 words of memory out of 5000000
  22673 multiletter control sequences out of 15000+600000
  9736 words of font info for 39 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 55i,12n,54p,460b,1896s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,12n,54p,630b,1896s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
 ></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
@@ -1048,7 +1050,7 @@ xlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/tex
 live/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texli
 ve/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive
 /2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on hw02_latex.pdf (5 pages, 170625 bytes).
+Output written on hw02_latex.pdf (5 pages, 173549 bytes).
 PDF statistics:
  197 PDF objects out of 1000 (max. 8388607)
  171 compressed objects within 2 object streams
