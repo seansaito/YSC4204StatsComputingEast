@@ -86,3 +86,86 @@ print(roystonResult)
 # also shows that the points deviate from the line which indicates multivariate normality.
 
 
+# Problem 3
+
+# Part A - Box-Muller normal random numbers
+
+RNGkind("default", "Box-Muller")
+set.seed(536)
+unif_rands <- runif(4)
+
+set.seed(536)
+rnorms <- rnorm(4)
+
+# According to the C file snorm.c, the following two
+# quantities are calculated, since we need to create 
+# two independent random numbers each time we draw
+theta = 2 * pi * unif_rands[1]
+R = sqrt(-2 * log(unif_rands[2]))
+
+# The normal random numbers are then generated as follows
+norm1 = R * cos(theta)
+norm2 = R * sin(theta)
+
+# These numbers are exactly equal to eachother, according to R
+cat(rnorms[1], ":", norm1, "  ", rnorms[1] == norm1,"\n")
+cat(rnorms[2], ":", norm2, "  ", rnorms[2] == norm2,"\n")
+
+# Part B - default inversion method
+
+RNGkind("default", "default")
+set.seed(536)
+unif_rands <- runif(4)
+
+set.seed(536)
+rnorms <- rnorm(4)
+
+# The code for the default inversion method is found in 
+# snorm.c and qnorm.c According to snorm.c, we 
+# increase precision by multiplying a uniform random number
+# by 2^27, then adding another uniform number to it, and finally
+# dividing by 2^27 again.
+
+u1 = (unif_rands[1] * (2^27) + unif_rands[2])/2^27
+u2 = (unif_rands[3] * (2^27) + unif_rands[4])/2^27
+
+# We can clearly see that u1 and u2 have been changed - only
+# the first six digits of u1 remain the same for example. 
+print(format(c(u1,unif_rands[1]), digits = 20))
+print(format(c(u2,unif_rands[3]), digits = 20))
+
+# We then call qnorm5 in the file qnorm.c 
+# with mu=0,sigma=1,lower_tail=1 and log_p=0
+
+# qnorm defines q = p - 0.5
+q1 <- u1 - 0.5
+q2 <- u2 - 0.5
+
+# We now approximate the integral with a rational 
+# function, with constants supplied in the source code
+# Since abs(q) < 0.425, we do the following
+
+r1 <- .180625 - q1 * q1
+r2 <- .180625 - q2 * q2
+
+rational_approx <- function(r, q){
+  return(
+  q * (((((((r * 2509.0809287301226727 +
+               33430.575583588128105) * r + 67265.770927008700853) * r +
+             45921.953931549871457) * r + 13731.693765509461125) * r +
+           1971.5909503065514427) * r + 133.14166789178437745) * r +
+         3.387132872796366608) / (((((((r * 5226.495278852854561 +
+           28729.085735721942674) * r + 39307.89580009271061) * r +
+         21213.794301586595867) * r + 5394.1960214247511077) * r +
+       687.1870074920579083) * r + 42.313330701600911252) * r + 1.)
+  )
+}
+final1 = rational_approx(r1, q1)
+final2 = rational_approx(r2, q2)
+
+print(format(c(final1,rnorms[1]), digits = 20))
+print(format(c(final2,rnorms[2]), digits = 20))
+
+# This looks accurate up to about nine decimal places, but
+# there is some approximation error in the rational function
+
