@@ -1,4 +1,4 @@
-# Code for YSC4204 Homework 2
+# Code for YSC4204 Homework 3
 # Authors
 # Sean Saito
 # John Reid
@@ -32,8 +32,9 @@ setwd(this.dir)
 # from an exponential distribution.
 # 
 # I am curious as to why this algorithm is favored over the inverse transform method, which is the
-# straightforward method of producing random numbers from a particular probability distribution function.
-# For example, since the cumulative distribution function of the exponential function is F_x(X) = 1 - e^{-lambda x},
+# straightforward method of producing random numbers from a particular probability distribution function, used
+# as the default for normal random numbers.
+# Since the cumulative distribution function of the exponential function is F_x(X) = 1 - e^{-lambda x},
 # one would use its inverse, F_x^-1(u) = -(1/lambda)log(1-u), to produce samples. In R, this is as easy as
 # -log(runif(n)) / lambda.
 # 
@@ -143,7 +144,8 @@ q2 <- u2 - 0.5
 
 # We now approximate the integral with a rational 
 # function, with constants supplied in the source code
-# Since abs(q) < 0.425, we do the following
+# (calculated using the Remez function)
+# Since abs(q1) < 0.425 and abs(q2) < 0.425 we do the following
 
 r1 <- .180625 - q1 * q1
 r2 <- .180625 - q2 * q2
@@ -168,4 +170,18 @@ print(format(c(final2,rnorms[2]), digits = 20))
 
 # This looks accurate up to about nine decimal places, but
 # there is some approximation error in the rational function
+
+
+# Problem 5
+
+# (a) Inverse Transform method 
+#   Can we work through a few more examples of the inverse transform, perhaps
+#   for slightly more tricky integrals?
+#
+# (b) Comparison of different C interfaces (.Call, .C, .Primitive, .External)
+#
+#   What are the advantages and disadvantages of each of these various methods?
+#   Can we work through a more complex case of outsourcing computation to C?
+
+
 
