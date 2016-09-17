@@ -39,7 +39,7 @@ setwd(this.dir)
 # -log(runif(n)) / lambda.
 # 
 # I have tried to hypothesize some benefits of the Ahrens-Dieter algorithm myself. However there does not seem to be 
-# any asymptotic time benefits, nor any obvious improvement in precision.
+# any asymptotic time benefits (the Ahrens-Dieter algorithm involves a single for-loop), nor any obvious improvements in precision.
 
 # Problem 2
 # Assessing a proposed alternative to the Box-Muller method
@@ -82,9 +82,11 @@ roystonResult <- roystonTest(pair_df)
 print(roystonResult)
 # Here, the Royston Test thinks the data is multivariate normal
 
-# In the end, however, the majority of tests label the data as not multivariate normal.
+# In the end, the majority of tests label the distribution as not multivariate normal.
+# Even for the Royston Test, which determined the data as multivariate normal, the p-value is rather
+# high at 0.352.
 # The Q-Q plot, which plots the theoretical and observed quantiles of the different distributions, 
-# also shows that the points deviate from the line which indicates multivariate normality.
+# also indicates that the points deviate from the line y=x which indicates multivariate normality.
 
 
 # Problem 3
