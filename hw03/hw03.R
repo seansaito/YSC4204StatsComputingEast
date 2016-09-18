@@ -80,7 +80,7 @@ pair_df <- data.frame(pair)
 
 # Assess the pair using MVN
 # Useful documentation here: https://cran.r-project.org/web/packages/MVN/vignettes/MVN.pdf
-mardiaResult <- mardiaTest(pair_df, qqplot=TRUE)
+mardiaResult <- mardiaTest(pair_df)
 print(mardiaResult)
 # Skew is too big, and thus is not multivariate normal
 hzResult <- hzTest(pair_df)
