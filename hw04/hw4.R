@@ -1,3 +1,4 @@
+
 # Problem 1
 
 # (a) We have chosen to represent the state as a single integer
@@ -133,3 +134,46 @@ rw4 <- rw.Metropolis(sigma[4], x0, N)
 hist(rw3$x, prob=TRUE)
 y <- seq(-10, 10, .1)
 lines(y, laplace(y), col="blue")
+
+# Question 3
+
+# First, we need to import the code from our last lesson
+
+# setwd("...")
+
+source("hw04/ising_lecture10c.R")
+
+# a) Correlation time vs kT
+
+kTlist <- seq(0.6, 5, 0.2)
+
+# This function takes a really long time to run. 
+getACtime <- function(beta) {
+  cat ("Beta = ", beta, "\n")
+  trans.list <- isingTransient(beta, lx, ly, ngb)
+  s <- trans.list$latt.inf
+  
+  if (beta < 1.8 || beta > 3) {
+    sweep = 200
+  } else {
+    sweep = 1000
+  }
+  steady.list <- isingSteady(beta, s, ngb, sweep)
+  
+  mabs <- abs(steady.list$mTimeSeries)
+  ac <- acf(mabs, lag.max = 200, plot = FALSE)$acf
+  return (match(TRUE, ac < exp(-1)))
+}
+
+AClist <- sapply(kTlist, getACtime)
+
+# Part b - Magnetization per spin
+
+exact <- function(beta) {
+  if (beta > 2.27) {
+    return(0)
+  } else {
+    return( (1 - sinh(2/beta) ^(1/4)) ^ (1/8) )
+  }
+}
+
