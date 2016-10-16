@@ -98,35 +98,38 @@ axis(side = 1, at = 1:8,
 # y1 <- x[index]
 # plot(index, y1, type="l", main="", ylab="x")
 
-f <- function(x) {
-  return(0.5 * exp(-abs(x)))
-}
+# Metropolis Random Walk
 
-rw.Metropolis <- function(n, sigma, x0, N) {
+laplace <- function(x) { return (0.5*exp(-abs(x)));}
+N <- 2000
+sigma <- c(.05, .5, 2, 16)
+x0 <- 25
+
+rw.Metropolis <- function(sigma, x0, N) { 
   x <- numeric(N)
   x[1] <- x0
   u <- runif(N)
   k <- 0
   for (i in 2:N) {
-    xt <- x[i - 1]
-    y <- rnorm(1, xt, sigma)
-    num <- f(y) * dchisq(xt, df = y)
-    den <- f(xt) * dchisq(y, df=xt)
-    if (u[i] <= num / den) {
-      x[i] <- y
-    } else {
-        x[i] <- xt
-        k <- k + 1
-      }
+    y <- rnorm(1, x[i-1], sigma)
+    if (u[i] <= (laplace(y) / laplace(x[i-1]))) 
+      x[i]<-y 
+    else{
+      x[i] <- x[i-1]
+      k <- k + 1 
+    }
   }
-  return(list(x=x, k=k))
+  return(list(x=x, k=k)) 
 }
 
-n <- 4 #degrees of freedom for target Student t dist.
-N <- 2000
+n <- 4 #degrees of freedom for target Student t dist. 
+N <- 10000
 sigma <- c(.05, .5, 2, 16)
 x0 <- 25
-rw1 <- rw.Metropolis(n, sigma[1], x0, N)
-rw2 <- rw.Metropolis(n, sigma[2], x0, N)
-rw3 <- rw.Metropolis(n, sigma[3], x0, N)
-rw4 <- rw.Metropolis(n, sigma[4], x0, N)
+rw1 <- rw.Metropolis(sigma[1], x0, N) 
+rw2 <- rw.Metropolis(sigma[2], x0, N) 
+rw3 <- rw.Metropolis(sigma[3], x0, N) 
+rw4 <- rw.Metropolis(sigma[4], x0, N)
+hist(rw3$x, prob=TRUE)
+y <- seq(-10, 10, .1)
+lines(y, laplace(y), col="blue")
