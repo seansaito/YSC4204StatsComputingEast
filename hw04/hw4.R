@@ -52,4 +52,30 @@ exact <- 1/Z * c(p_ground, p_higher, p_higher, p_higher, p_higher, p_higher, p_h
 #plot(exact)
 
 
+# Problem 2
 
+laplace <- function(x, b) {
+  return((0.5 * (1 / b)) * exp(-abs(x)/b))
+}
+
+m <- 10000
+sigma <- 4
+x <- numeric(m)
+x[1] <- rchisq(1, df=1)
+k <- 0
+u <- runif(m)
+
+for (i in 2:m) {
+  xt <- x[i - 1]
+  y <- rchisq(1, df = xt)
+  num <- laplace(y, b=sigma) * dchisq(xt, df = y)
+  den <- laplace(xt, b=sigma) * dchisq(y, df = xt)
+  if (u[i] <= num / den) x[i] <- y else {
+    x[i] <- xt
+    k <- k + 1
+  }
+}
+
+index <- 5000:5500
+y1 <- x[index]
+plot(index, y1, type="l", main="", ylab="x")
