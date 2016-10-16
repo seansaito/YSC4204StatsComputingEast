@@ -54,28 +54,61 @@ exact <- 1/Z * c(p_ground, p_higher, p_higher, p_higher, p_higher, p_higher, p_h
 
 # Problem 2
 
-laplace <- function(x, b) {
-  return((0.5 * (1 / b)) * exp(-abs(x)/b))
+# laplace <- function(x, b) {
+#   return((0.5 * (1 / b)) * exp(-abs(x)/b))
+# }
+# 
+# m <- 10000
+# sigma <- 4
+# x <- numeric(m)
+# x[1] <- rchisq(1, df=1)
+# k <- 0
+# u <- runif(m)
+# 
+# for (i in 2:m) {
+#   xt <- x[i - 1]
+#   y <- rchisq(1, df = xt)
+#   num <- laplace(y, b=sigma) * dchisq(xt, df = y)
+#   den <- laplace(xt, b=sigma) * dchisq(y, df = xt)
+#   if (u[i] <= num / den) x[i] <- y else {
+#     x[i] <- xt
+#     k <- k + 1
+#   }
+# }
+# 
+# index <- 1000:5500
+# y1 <- x[index]
+# plot(index, y1, type="l", main="", ylab="x")
+
+f <- function(x) {
+  return(0.5 * exp(-abs(x)))
 }
 
-m <- 10000
-sigma <- 4
-x <- numeric(m)
-x[1] <- rchisq(1, df=1)
-k <- 0
-u <- runif(m)
-
-for (i in 2:m) {
-  xt <- x[i - 1]
-  y <- rchisq(1, df = xt)
-  num <- laplace(y, b=sigma) * dchisq(xt, df = y)
-  den <- laplace(xt, b=sigma) * dchisq(y, df = xt)
-  if (u[i] <= num / den) x[i] <- y else {
-    x[i] <- xt
-    k <- k + 1
+rw.Metropolis <- function(n, sigma, x0, N) {
+  x <- numeric(N)
+  x[1] <- x0
+  u <- runif(N)
+  k <- 0
+  for (i in 2:N) {
+    xt <- x[i - 1]
+    y <- rnorm(1, xt, sigma)
+    num <- f(y) * dchisq(xt, df = y)
+    den <- f(xt) * dchisq(y, df=xt)
+    if (u[i] <= num / den) {
+      x[i] <- y
+    } else {
+        x[i] <- xt
+        k <- k + 1
+      }
   }
+  return(list(x=x, k=k))
 }
 
-index <- 5000:5500
-y1 <- x[index]
-plot(index, y1, type="l", main="", ylab="x")
+n <- 4 #degrees of freedom for target Student t dist.
+N <- 2000
+sigma <- c(.05, .5, 2, 16)
+x0 <- 25
+rw1 <- rw.Metropolis(n, sigma[1], x0, N)
+rw2 <- rw.Metropolis(n, sigma[2], x0, N)
+rw3 <- rw.Metropolis(n, sigma[3], x0, N)
+rw4 <- rw.Metropolis(n, sigma[4], x0, N)
