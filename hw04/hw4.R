@@ -32,11 +32,11 @@ ising3site_run <- function(m, t, beta) {
 }
 
 # (b) 
-# The exact boltzmann probabilities are given by (1/Z) * exp(-E_u/beta)
+# The exact boltzmann probabilities are given by (1/Z) * exp(-E_u*beta)
 
 # Calculating Z
-p_ground <- exp(3 / beta)
-p_higher <- exp(-1 / beta)
+p_ground <- exp(3 * beta)
+p_higher <- exp(-1 * beta)
 Z <- 2 * p_ground + 6 * p_higher
 
 exact <- 1/Z * c(p_ground, p_higher, p_higher, p_higher, p_higher, p_higher, p_higher, p_ground)
