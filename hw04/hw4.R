@@ -135,7 +135,7 @@ rw.Metropolis2 <- function(sigma, x0, N) {
 }
 
 n <- 4 #degrees of freedom for target Student t dist. 
-N <- 10000
+N <- 2000
 sigma <- c(.05, .5, 2, 16)
 x0 <- 25
 rw1 <- rw.Metropolis2(sigma[1], x0, N) 
@@ -145,3 +145,15 @@ rw4 <- rw.Metropolis2(sigma[4], x0, N)
 hist(rw3$x, prob=TRUE)
 y <- seq(-10, 10, .1)
 lines(y, laplace(y), col="blue")
+
+# Tables 
+qlaplace <- function(x) { if(x>50) return(-log(2*(x-50))) else return(log(2*-x)) }
+qlaplace(-.75)
+?log
+a <- c(.05, seq(.1, .9, .1), .95)
+Q <- qlaplace(a, n)
+rw <- cbind(rw1$x, rw2$x, rw3$x, rw4$x)
+mc <- rw[501:N, ]
+Qrw <- apply(mc, 2, function(x) quantile(x, a)) 
+print(round(cbind(Q, Qrw), 3)) #not shown 
+xtable::xtable(round(cbind(Q, Qrw), 3)) #latex forma
