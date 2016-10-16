@@ -135,11 +135,10 @@ y <- seq(-10, 10, .1)
 lines(y, laplace(y), col="blue")
 
 # Tables 
-qlaplace <- function(x) { if(x>50) return(-log(2*(x-50))) else return(log(2*-x)) }
-qlaplace(-.75)
-?log
+qlaplace <- function(x) { 
+  return(ifelse(x==0.5, 0, ifelse(x<0.5, (log(2*(0.5-x))), (-log(2*(x-0.5))))))}
 a <- c(.05, seq(.1, .9, .1), .95)
-Q <- qlaplace(a, n)
+Q <- qlaplace(a)
 rw <- cbind(rw1$x, rw2$x, rw3$x, rw4$x)
 mc <- rw[501:N, ]
 Qrw <- apply(mc, 2, function(x) quantile(x, a)) 
@@ -155,3 +154,4 @@ plot(rw1$x, type="l", main="", xlab="Sigma = 0.05")
 plot(rw2$x, type="l", main="", xlab="Sigma = 0.5")
 plot(rw3$x, type="l", main="", xlab="Sigma = 2")
 plot(rw4$x, type="l", main="", xlab="Sigma = 16")
+
