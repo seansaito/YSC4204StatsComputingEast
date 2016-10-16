@@ -105,7 +105,7 @@ rw.Metropolis <- function(sigma, x0, N) {
 }
 
 n <- 4 #degrees of freedom for target Student t dist. 
-N <- 10000
+N <- 2000
 sigma <- c(.05, .5, 2, 16)
 x0 <- 25
 rw1 <- rw.Metropolis(sigma[1], x0, N) 
@@ -115,3 +115,14 @@ rw4 <- rw.Metropolis(sigma[4], x0, N)
 hist(rw3$x, prob=TRUE)
 y <- seq(-10, 10, .1)
 lines(y, laplace(y), col="blue")
+
+# Number of candidate points rejected
+print(c(rw1$k, rw2$k, rw3$k, rw4$k))
+
+# index <- 1000:5500
+# y1 <- rw1$x[index]
+plot(rw1$x, type="l", main="", ylab="Sigma = 0.05")
+plot(rw2$x, type="l", main="", ylab="Simga = 0.5")
+plot(rw3$x, type="l", main="", ylab="Simga = 2")
+plot(rw4$x, type="l", main="", ylab="Simga = 16")
+
