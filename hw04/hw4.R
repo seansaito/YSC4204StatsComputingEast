@@ -134,24 +134,39 @@ hist(rw3$x, prob=TRUE)
 y <- seq(-10, 10, .1)
 lines(y, laplace(y), col="blue")
 
-# Tables 
-qlaplace <- function(x) { if(x>50) return(-log(2*(x-50))) else return(log(2*-x)) }
-qlaplace(-.75)
-?log
-a <- c(.05, seq(.1, .9, .1), .95)
-Q <- qlaplace(a, n)
-rw <- cbind(rw1$x, rw2$x, rw3$x, rw4$x)
-mc <- rw[501:N, ]
-Qrw <- apply(mc, 2, function(x) quantile(x, a)) 
-print(round(cbind(Q, Qrw), 3)) #not shown 
-xtable::xtable(round(cbind(Q, Qrw), 3)) #latex forma
+# # Tables 
+# qlaplace <- function(x) { if(x>50) return(-log(2*(x-50))) else return(log(2*-x)) }
+# qlaplace(-.75)
+# ?log
+# a <- c(.05, seq(.1, .9, .1), .95)
+# Q <- qlaplace(a, n)
+# rw <- cbind(rw1$x, rw2$x, rw3$x, rw4$x)
+# mc <- rw[501:N, ]
+# Qrw <- apply(mc, 2, function(x) quantile(x, a)) 
+# print(round(cbind(Q, Qrw), 3)) #not shown 
+# xtable::xtable(round(cbind(Q, Qrw), 3)) #latex forma
 
-# Number of candidate points rejected
-print(c(rw1$k, rw2$k, rw3$k, rw4$k))
+# Acceptance rates
+print("Acceptance rates")
+print(c(rw1$k / 2000, rw2$k / 2000, rw3$k / 2000, rw4$k / 2000))
 
 # index <- 1000:5500
 # y1 <- rw1$x[index]
-plot(rw1$x, type="l", main="", xlab="Sigma = 0.05")
-plot(rw2$x, type="l", main="", xlab="Sigma = 0.5")
-plot(rw3$x, type="l", main="", xlab="Sigma = 2")
-plot(rw4$x, type="l", main="", xlab="Sigma = 16")
+y <- 1:2000
+plot(rw1$x, type="l", main="", xlab="Sigma = 0.05", ylab="x")
+lines(y, rep(0.15, 2000), col="red")
+lines(y, rep(0.5, 2000), col="red")
+plot(rw2$x, type="l", main="", xlab="Sigma = 0.5", ylab="x")
+lines(y, rep(0.15, 2000), col="red")
+lines(y, rep(0.5, 2000), col="red")
+plot(rw3$x, type="l", main="", xlab="Sigma = 2", ylab="x")
+lines(y, rep(0.15, 2000), col="red")
+lines(y, rep(0.5, 2000), col="red")
+plot(rw4$x, type="l", main="", xlab="Sigma = 16", ylab="x")
+lines(y, rep(0.15, 2000), col="red")
+lines(y, rep(0.5, 2000), col="red")
+
+
+# Comments
+# As also observed in the Rizzo book, the chains are very sensitive to the variance of
+# the proposal distribution. Our desirable 
