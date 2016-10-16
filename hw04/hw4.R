@@ -101,9 +101,6 @@ axis(side = 1, at = 1:8,
 # Metropolis Random Walk
 
 laplace <- function(x) { return (0.5*exp(-abs(x)));}
-N <- 2000
-sigma <- c(.05, .5, 2, 16)
-x0 <- 25
 
 rw.Metropolis <- function(sigma, x0, N) { 
   x <- numeric(N)
@@ -122,7 +119,6 @@ rw.Metropolis <- function(sigma, x0, N) {
   return(list(x=x, k=k)) 
 }
 
-n <- 4 #degrees of freedom for target Student t dist. 
 N <- 2000
 sigma <- c(.05, .5, 2, 16)
 x0 <- 25
@@ -142,22 +138,18 @@ print(c(rw1$k / 2000, rw2$k / 2000, rw3$k / 2000, rw4$k / 2000))
 # y1 <- rw1$x[index]
 y <- 1:2000
 plot(rw1$x, type="l", main="", xlab="Sigma = 0.05", ylab="x")
-lines(y, rep(-2.5, 2000), col="red")
-lines(y, rep(2.5, 2000), col="red")
+lines(y, rep(-2.5, 2000))
+lines(y, rep(2.5, 2000))
 plot(rw2$x, type="l", main="", xlab="Sigma = 0.5", ylab="x")
-lines(y, rep(2.5, 2000), col="red")
-lines(y, rep(-2.5, 2000), col="red")
+lines(y, rep(2.5, 2000))
+lines(y, rep(-2.5, 2000))
 plot(rw3$x, type="l", main="", xlab="Sigma = 2", ylab="x")
-lines(y, rep(2.5, 2000), col="red")
-lines(y, rep(-2.5, 2000), col="red")
+lines(y, rep(2.5, 2000))
+lines(y, rep(-2.5, 2000))
 plot(rw4$x, type="l", main="", xlab="Sigma = 16", ylab="x")
-lines(y, rep(2.5, 2000), col="red")
-lines(y, rep(-2.5, 2000), col="red")
+lines(y, rep(2.5, 2000))
+lines(y, rep(-2.5, 2000))
 
-
-# Comments
-# As also observed in the Rizzo book, the chains are very sensitive to the variance of
-# the proposal distribution. Our desirable 
 # Tables 
 qlaplace <- function(x) { 
   return(ifelse(x==0.5, 0, ifelse(x<0.5, (log(2*(0.5-x))), (-log(2*(x-0.5))))))}
@@ -168,3 +160,8 @@ mc <- rw[501:N, ]
 Qrw <- apply(mc, 2, function(x) quantile(x, a)) 
 print(round(cbind(Q, Qrw), 3)) #not shown 
 xtable::xtable(round(cbind(Q, Qrw), 3)) #latex forma
+
+# Comments
+# As also observed in the Rizzo book, the chains are very sensitive to the variance of
+# the proposal distribution. Our desirable acceptance ratio is in the range [0.15, 0.5]
+# The third and fourth walk generate acceptance rates that come within this range.
