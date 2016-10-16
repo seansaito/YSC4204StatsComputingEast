@@ -139,8 +139,8 @@ print(c(rw1$k, rw2$k, rw3$k, rw4$k))
 
 # index <- 1000:5500
 # y1 <- rw1$x[index]
-plot(rw1$x, type="l", main="", ylab="Sigma = 0.05")
-plot(rw2$x, type="l", main="", ylab="Simga = 0.5")
-plot(rw3$x, type="l", main="", ylab="Simga = 2")
-plot(rw4$x, type="l", main="", ylab="Simga = 16")
+plot(rw1$x, type="l", main="", xlab="Sigma = 0.05")
+plot(rw2$x, type="l", main="", xlab="Simga = 0.5")
+plot(rw3$x, type="l", main="", xlab="Simga = 2")
+plot(rw4$x, type="l", main="", xlab="Simga = 16")
 
