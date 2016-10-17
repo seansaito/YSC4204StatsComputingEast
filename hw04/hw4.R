@@ -173,31 +173,40 @@ xtable::xtable(round(cbind(Q, Qrw), 3)) #latex forma
 
 # setwd("...")
 
-source("hw04/ising_lecture10c.R")
+source("~/hw04/ising_lecture10c.R")
 
 # a) Correlation time vs kT
 
-kTlist <- seq(0.6, 5, 0.2)
+kTlist <- 1 / seq(0.6, 5, 0.2)
 
-# This function takes a really long time to run. 
-getACtime <- function(beta) {
+# I split this into three to check intermediate results
+kTlist.a <- kTlist[1:6]
+kTlist.b <- kTlist[7:12]
+kTlist.c <- kTlist[13:23]
+
+# Essentially the same function from class
+getACtime <- function(beta, steady_sweep) {
   cat ("Beta = ", beta, "\n")
   trans.list <- isingTransient(beta, lx, ly, ngb)
   s <- trans.list$latt.inf
-  
-  if (beta < 1.8 || beta > 3) {
-    sweep = 200
-  } else {
-    sweep = 1000
-  }
-  steady.list <- isingSteady(beta, s, ngb, sweep)
+  steady.list <- isingSteady(beta, s, ngb, steady_sweep)
   
   mabs <- abs(steady.list$mTimeSeries)
-  ac <- acf(mabs, lag.max = 200, plot = FALSE)$acf
+  ac <- acf(mabs, lag.max = 2000, plot = FALSE)$acf
+  print(match(TRUE, ac < exp(-1)))
   return (match(TRUE, ac < exp(-1)))
 }
 
-AClist <- sapply(kTlist, getACtime)
+AC.a <- sapply(kTlist.a, getACtime, 1000)
+AC.b <- sapply(kTlist.b, getACtime, 1000)
+AC.c <- sapply(kTlist.c, getACtime, 1000)
+
+AC.final <- c(AC.a, AC.b, AC.c)
+
+x <- seq(0.6, 5.0, 0.2)
+plot(x, AC.final, main = "Correlation time vs kT", 
+     xlab = "kT", ylab = "Correlation time")
+lines(x, AC.final)
 
 # Part b - Magnetization per spin
 
@@ -208,3 +217,14 @@ exact <- function(beta) {
     return( (1 - sinh(2/beta) ^(1/4)) ^ (1/8) )
   }
 }
+
+getMag <- function(beta, steady_sweep) {
+  cat ("Beta = ", beta, "\n")
+  trans.list <- isingTransient(beta, lx, ly, ngb)
+  s <- trans.list$latt.inf
+  steady.list <- isingSteady(beta, s, ngb, steady_sweep)
+  
+  mabs <- abs(steady.list$mTimeSeries)
+  return (mean(mabs))
+}
+
