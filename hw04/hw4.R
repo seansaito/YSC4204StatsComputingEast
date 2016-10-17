@@ -32,17 +32,17 @@ ising3site_run <- function(m, t, beta) {
 }
 
 # (b) 
-# The exact boltzmann probabilities are given by (1/Z) * exp(-E_u/beta)
+# The exact boltzmann probabilities are given by (1/Z) * exp(-E_u*beta)
 
 # Calculating Z
-p_ground <- exp(3 / beta)
-p_higher <- exp(-1 / beta)
+m = 10000
+beta = 1/3
+
+p_ground <- exp(3 * beta)
+p_higher <- exp(-1 * beta)
 Z <- 2 * p_ground + 6 * p_higher
 
 exact <- 1/Z * c(p_ground, p_higher, p_higher, p_higher, p_higher, p_higher, p_higher, p_ground)
-
-m = 10000
-beta = 1/3
 
 # Checking for time t = 1, 2, 5, 10, 100
 t_1 <- ising3site_run(m, 1, beta)
@@ -60,15 +60,20 @@ res_10 <- (as.vector(table(t_10))) / m
 t_100 <- ising3site_run(m, 100, beta)
 res_100 <- (as.vector(table(t_100))) / m
 
-plot(exact, type = "l", xaxt = "n", xlab ="States", ylab = "Prob",
-     main = "3-site Ising Model: Exact vs Monte Carlo probabilities")
-lines(res_1, col = "red")
-lines(res_2, col = "green")
-lines(res_5, col = "blue")
-lines(res_10, col = "yellow")
-lines(res_100, col = "pink")
-legend(x = 2, y = 0.45, legend = c("exact", "t1", "t2", "t5", "t10", "t100"), 
-       lwd = 2,col = c("black", "red", "green", "blue", "yellow", "pink"))
+## Plot comparisons of probabilities ##
+plot(res_1, type = "l",col="red",lwd=2, xaxt = "n",
+     xlab ="States", ylab = "Prob",
+     main = "3-site Ising Model: Boltzmann vs MCMC probabilities",
+     ylim=c(0,0.35))
+lines(res_2, col = "green",lwd=2)
+lines(res_5, col = "blue",lwd=2)
+lines(res_10, col = "grey",lwd=2)
+lines(res_100, col = "pink2",lwd=2)
+lines(exact, col="black",lwd=2,lty=2)
+legend(x = 2, y = 0.35,
+       legend = c("Boltzmann", "t=1", "t=2", "t=5", "t=10", "t=100"), 
+       lwd = 2,col = c("black", "red", "green", "blue", "grey", "pink2"),
+       lty=c(2,1,1,1,1,1))
 axis(side = 1, at = 1:8,
      labels = c("---", "--+", "-+-", "-++", "+--", "+-+", "++-", "+++"))
 # Problem 2
