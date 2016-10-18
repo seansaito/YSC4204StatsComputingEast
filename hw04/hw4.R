@@ -215,12 +215,8 @@ lines(x, AC.final)
 
 # Part b - Magnetization per spin
 
-exact <- function(beta) {
-  if (beta > 2.27) {
-    return(0)
-  } else {
-    return( (1 - sinh(2/beta) ^(1/4)) ^ (1/8) )
-  }
+onsagerExact <- function(kT) {
+  return (ifelse(kT >= 2.27, 0, (1 - sinh(2/kT) ^(-4)) ^ (1/8) ))
 }
 
 getMag <- function(beta, steady_sweep) {
@@ -230,6 +226,14 @@ getMag <- function(beta, steady_sweep) {
   steady.list <- isingSteady(beta, s, ngb, steady_sweep)
   
   mabs <- abs(steady.list$mTimeSeries)
+  print(mean(mabs))
   return (mean(mabs))
 }
 
+mag.final <- sapply(kTlist, getMag, 1000)
+
+plot(seq(0.6, 5.0, 0.2), mag.final, main ="Magnetization vs kT", 
+     xlab = "kT", ylab = "|mag|")
+
+points <- seq(0.6, 5.0, 0.01)
+lines(points, onsagerExact(points))
