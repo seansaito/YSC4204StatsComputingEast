@@ -42,6 +42,7 @@ p_ground <- exp(3 * beta)
 p_higher <- exp(-1 * beta)
 Z <- 2 * p_ground + 6 * p_higher
 
+# Boltzmann Probabilities
 exact <- 1/Z * c(p_ground, p_higher, p_higher, p_higher, p_higher, p_higher, p_higher, p_ground)
 
 # Checking for time t = 1, 2, 5, 10, 100
@@ -132,7 +133,11 @@ rw1 <- rw.Metropolis(sigma[1], x0, N)
 rw2 <- rw.Metropolis(sigma[2], x0, N) 
 rw3 <- rw.Metropolis(sigma[3], x0, N) 
 rw4 <- rw.Metropolis(sigma[4], x0, N)
-hist(rw3$x, prob=TRUE)
+
+# Check histogram
+hist(rw2$x, prob=TRUE,breaks=50,
+     main="Distribution of points generated with sigma=2,\n compared against Laplace distribution",
+     xlab="X")
 y <- seq(-10, 10, .1)
 lines(y, laplace(y), col="blue")
 
@@ -143,6 +148,7 @@ print(c(rw1$k / 2000, rw2$k / 2000, rw3$k / 2000, rw4$k / 2000))
 # index <- 1000:5500
 # y1 <- rw1$x[index]
 y <- 1:2000
+par(mfrow=c(2,2))
 plot(rw1$x, type="l", main="", xlab="Sigma = 0.05", ylab="x")
 lines(y, rep(-2.5, 2000))
 lines(y, rep(2.5, 2000))
@@ -155,6 +161,7 @@ lines(y, rep(-2.5, 2000))
 plot(rw4$x, type="l", main="", xlab="Sigma = 16", ylab="x")
 lines(y, rep(2.5, 2000))
 lines(y, rep(-2.5, 2000))
+par(mfrow=c(1,1))
 
 # Tables 
 qlaplace <- function(x) { 
@@ -165,7 +172,7 @@ rw <- cbind(rw1$x, rw2$x, rw3$x, rw4$x)
 mc <- rw[501:N, ]
 Qrw <- apply(mc, 2, function(x) quantile(x, a)) 
 print(round(cbind(Q, Qrw), 3)) #not shown 
-xtable::xtable(round(cbind(Q, Qrw), 3)) #latex forma
+xtable::xtable(round(cbind(Q, Qrw), 3)) #generate latex table
 
 # Comments
 # As also observed in the Rizzo book, the chains are very sensitive to the variance of
@@ -202,12 +209,14 @@ getACtime <- function(beta, steady_sweep) {
   return (match(TRUE, ac < exp(-1)))
 }
 
+# Compute
 AC.a <- sapply(kTlist.a, getACtime, 1000)
 AC.b <- sapply(kTlist.b, getACtime, 1000)
 AC.c <- sapply(kTlist.c, getACtime, 1000)
 
 AC.final <- c(AC.a, AC.b, AC.c)
 
+# Plot
 x <- seq(0.6, 5.0, 0.2)
 plot(x, AC.final, main = "Correlation time vs kT", 
      xlab = "kT", ylab = "Correlation time")
@@ -230,8 +239,10 @@ getMag <- function(beta, steady_sweep) {
   return (mean(mabs))
 }
 
+# Compute
 mag.final <- sapply(kTlist, getMag, 1000)
 
+# Plot
 plot(seq(0.6, 5.0, 0.2), mag.final, main ="Magnetization vs kT", 
      xlab = "kT", ylab = "|mag|")
 
