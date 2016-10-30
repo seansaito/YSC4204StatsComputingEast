@@ -106,3 +106,28 @@ x <- c(-7.99,24.11,3.41,7.01,22.28,0.54,-1.97,15.97,11.53,237.63)
 g <- function(gam){
   return(10/gam + sum(2*gam/(x^2+gam^2)))
 }
+
+# (b)
+bisec <- function(f, a, b) {
+  # a is negative, b is positive
+  i <- 1
+  while (TRUE) {
+    fa <- f(a)
+    fb <- f(b)
+    half <- (a+b)/2
+    if (f(half) < 0) {
+      a <- half
+    } else if (f(half) > 0){
+      b <- half
+    } else if (f(half) < 1e-6) {
+      cat("Converged on iteration ", i, " with root ", half, "\n")
+      break
+    } else {
+    }
+    # cat("Iteration ", i, "Half-point: ", half, " with value of ", f(half), "\n")
+  }
+}
+
+# (c)
+res <- uniroot(g, c(1, 100), check.conv=TRUE)
+print(res$iter)
