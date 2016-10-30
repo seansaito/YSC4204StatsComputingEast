@@ -1,3 +1,4 @@
+#### Question 1 ####
 # Brent's method requires three values a_k, b_k and b_k - 1
 #, and calculates a new iterate each time. For the start, we set 
 # a_k to 0, b_k to 5. We use the secant method to calculate the 
@@ -98,3 +99,6 @@ cat("\nResult after 2nd iteration is ", iter3)
 
 iter4 = secant(f, iter2, iter3)
 cat("\nResult after 2nd iteration is ", iter4)
+
+#### Question 2 ####
+x <- c(-7.99,24.11,3.41,7.01,22.28,0.54,-1.97,15.97,11.53,237.63)
