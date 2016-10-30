@@ -8,6 +8,31 @@ f <- function(x){
   return(x^2 - 9)
 }
 
+get_x_at_iter <- function(n) {
+  res <- uniroot(f, c(0,5), maxiter=n)
+  return(res$root)
+}
+
+four_iterations <- sapply(1:4, get_x_at_iter)
+
+bisec <- function(f, a, b, iter) {
+  # a is negative, b is positive
+  for (i in 1:iter) {
+    fa <- f(a)
+    fb <- f(b)
+    half <- (a+b)/2
+    if (f(half) < 0) {
+      a <- half
+    } else if (f(half) > 0){
+      b <- half
+    } else {
+      cat("Converged\n")
+      cat("Root ", half, "\n")
+    }
+    cat("Iteration ", i, "Half-point: ", half, " with value of ", f(half), "\n")
+  }
+}
+
 secant <- function(f, a, b){
   return(a - f(a) * (a - b) / (f(a) - f(b)))
 }
