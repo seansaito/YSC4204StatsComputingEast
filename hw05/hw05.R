@@ -24,4 +24,14 @@ secant_loop <- function(f, a, b){
   return(xa)
 }
 
+inverse_quad <- function(f, a, b, c){
+  fa = f(a)
+  fb = f(b)
+  fc = f(c)
+  term1 <- (fa * fb) / ((fc - fb) * (fc - fa)) * c
+  term2 <- (fc * fa) / ((fb - fc) * (fb - fa)) * b
+  term3 <- (fb * fc) / ((fa - fc) * (fa - fb)) * a
+  return (term1 + term2 + term3)
+}
+
 
