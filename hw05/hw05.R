@@ -101,10 +101,11 @@ iter4 = secant(f, iter2, iter3)
 cat("\nResult after 2nd iteration is ", iter4)
 
 #### Question 2 ####
+# (a)
 x <- c(-7.99,24.11,3.41,7.01,22.28,0.54,-1.97,15.97,11.53,237.63)
 
 g <- function(gam){
-  return(10/gam + sum(2*gam/(x^2+gam^2)))
+  return(10/gam - sum(2*gam/(x^2+gam^2)))
 }
 
 # (b)
