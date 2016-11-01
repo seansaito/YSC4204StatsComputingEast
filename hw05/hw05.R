@@ -1,16 +1,15 @@
 #### Question 1 ####
-# Brent's method requires three values a_k, b_k and b_k - 1
-#, and calculates a new iterate each time. For the start, we set 
+# An iteration of Brent's method requires three values a_k, b_k and b_k - 1
+# and calculates a new iterate each time. We start with two values and set 
 # a_k to 0, b_k to 5. We use the secant method to calculate the 
 # third value, which is 1.8.
 
-# Next, we do bisection of (1.8, 5) to get 3.4, which is the value 
-# result after one iteration. After that, we do secant (1.8, 3.4) to
+# Next, we do bisection of (1.8, 5) to get 3.4, which is the 
+# result after one iteration. In the second iteration, we use secant (1.8, 3.4) to
 # get 2.9067
 
-# For the last two iterations, we use inverse quadratic interpolation. 
-
-# Next, we compare the results of the 
+# The third iteration uses secant as well. The fourth iteration uses inverse quadratic interpolation. This is because
+# the result of secant in the fourth iteration gives a root of 3.000092, whereas inverse quadratic 3.000011
 
 f <- function(x){
   return(x^2 - 9)
@@ -89,16 +88,24 @@ iter0 = secant(f, a, b)
 cat("\nResult after 0th iteration is ", iter0)
 
 iter1 = bisec_simple(f, iter0, b)
-cat("\nResult after 1st iteration is ", iter1)
+cat("\nResult after 1st iteration for bisection is ", iter1)
+iter1_quad = inverse_quad(f, a, iter0, b)
+cat("\nResult after 1st iteration for inverse quad is ", iter1_quad)
 
 iter2 = secant(f, iter0, iter1)
 cat("\nResult after 2nd iteration is ", iter2)
+iter2_quad = inverse_quad(f, iter0, iter1, b)
+cat("\nResult after 2nd iteration for inverse quad is ", iter2_quad)
 
 iter3 = secant(f, iter1, iter2)
-cat("\nResult after 2nd iteration is ", iter3)
+cat("\nResult after 3rd iteration is ", iter3)
+iter3_quad = inverse_quad(f, iter0, iter2, iter1)
+cat("\nResult after 3rd iteration for inverse quad is ", iter3_quad)
 
 iter4 = secant(f, iter2, iter3)
-cat("\nResult after 2nd iteration is ", iter4)
+cat("\nResult after 4th iteration is ", iter4)
+iter4_quad = inverse_quad(f, iter2, iter3, iter1)
+cat("\nResult after 4th iteration for inverse quad is ", iter4_quad)
 
 #### Question 2 ####
 # (a)
@@ -134,9 +141,32 @@ bisec(g, 100, 1, 55)
 # (c)
 res <- uniroot(g, c(1, 100), tol=1e-6, check.conv=TRUE)
 print(res$iter)
+# Converges at 12
 
 # (d)
 gprime <- function(gam) {
   return(-10 / (gam^2) - sum((2 * x^2 - 2 * gam^2) / (x^2 + gam^2)^2))
 }
 
+get_new_x <- function(x, f, fprime) {
+  y <- f(x)
+  m <- fprime(x)
+  c <- y - (m * x)
+  
+  # Solve for 0 = mx + c
+  intercept <- -c / m
+  return(intercept)
+}
+
+newton_raphson <- function(f, fprime, gam) {
+  i <- 1
+  while (abs(f(gam)) > 1e-6) {
+    gam <- get_new_x(gam, f, fprime)
+    cat("Iteration ", i, " with root ", gam, " and f.root ", f(gam), "\n")
+    i <- i + 1
+  }
+  cat("Converged at iteration ", i, " with root ", gam, " and f.root ", f(gam), "\n")
+}
+
+newton_raphson(g, gprime, 1)
+# Converged at iteration 9
