@@ -109,10 +109,9 @@ g <- function(gam){
 }
 
 # (b)
-bisec <- function(f, a, b) {
+bisec <- function(f, a, b, iter) {
   # a is negative, b is positive
-  i <- 1
-  while (TRUE) {
+  for (i in 1:iter) {
     fa <- f(a)
     fb <- f(b)
     half <- (a+b)/2
@@ -120,15 +119,24 @@ bisec <- function(f, a, b) {
       a <- half
     } else if (f(half) > 0){
       b <- half
-    } else if (f(half) < 1e-6) {
-      cat("Converged on iteration ", i, " with root ", half, "\n")
+    } 
+    if (abs(f(half)) < 1e-6) {
+      cat("Converged on iteration", i, "\n")
+      cat("Root is ", half, " with value ", f(half), "\n")
       break
-    } else {
     }
-    # cat("Iteration ", i, "Half-point: ", half, " with value of ", f(half), "\n")
+   # cat("Iteration ", i, "Half-point: ", half, " with value of ", f(half), "\n")
   }
 }
+bisec(g, 100, 1, 55)
+# Converges after 19 iterations for accuracy 10^-6
 
 # (c)
-res <- uniroot(g, c(1, 100), check.conv=TRUE)
+res <- uniroot(g, c(1, 100), tol=1e-6, check.conv=TRUE)
 print(res$iter)
+
+# (d)
+gprime <- function(gam) {
+  return(-10 / (gam^2) - sum((2 * x^2 - 2 * gam^2) / (x^2 + gam^2)^2))
+}
+
