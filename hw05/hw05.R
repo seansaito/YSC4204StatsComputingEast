@@ -170,3 +170,9 @@ newton_raphson <- function(f, fprime, gam) {
 
 newton_raphson(g, gprime, 1)
 # Converged at iteration 9
+
+#### Problem 4 ####
+face <- read.csv("face_recog.csv",as.is=TRUE)
+lr <- glm(face$match~face$eyediff,family=binomial,data=face)
+
+lr$coefficients # MLEs
