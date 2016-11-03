@@ -200,5 +200,17 @@ for (i in 1:4) {
 
 # (c)
 # Editted the fitting function via trace(glm.fit, edit=TRUE)
+
+# Lines 78 - 81. Printing the intermediate coefficients during the loop
+# for (iter in 1L:control$maxit) {
+#   print(coef)
+#   good <- weights > 0
+
+# Lines 226 - 229. Printing the final coefficients
+# aic.model <- aic(y, n, mu, weights, dev) + 2 * rank
+# print(coef)
+# list(coefficients = coef, residuals = residuals, fitted.values = mu, 
+#      effects = if (!EMPTY) fit$effects, R = if (!EMPTY) Rmat, 
+
 # This prints out the intermediate coefficients
 glm(face$match~face$eyediff,family=binomial,data=face)
