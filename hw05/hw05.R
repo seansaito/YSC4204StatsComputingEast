@@ -197,3 +197,8 @@ for (i in 1:4) {
   beta <- beta + fac1 %*% fac2
   print(beta)  
 }
+
+# (c)
+# Editted the fitting function via trace(glm.fit, edit=TRUE)
+# This prints out the intermediate coefficients
+glm(face$match~face$eyediff,family=binomial,data=face)
