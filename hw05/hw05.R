@@ -214,3 +214,16 @@ for (i in 1:4) {
 
 # This prints out the intermediate coefficients
 glm(face$match~face$eyediff,family=binomial,data=face)
+
+# These are the results we get when we print intermediate coefficients
+# [1]   1.82592 -13.55090
+# [1]   1.757199 -13.389226
+# [1]   1.758701 -13.400035
+# (Intercept) face$eyediff 
+# [1] 1.758701   -13.400040 
+
+# It appears that glm is not using pure Newton Raphson, since the 
+# intermediate results are not the same. However, they converge in
+# the same number of iterations, with seemingly the same degree of 
+# precision. In the help menu for glm.fit, under method, it states
+# that the default method used is 'iteratively reweighted least squares'.
