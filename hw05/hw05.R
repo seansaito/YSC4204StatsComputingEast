@@ -1,3 +1,8 @@
+# Automatically sets working directory to source file location
+this.dir <- dirname(parent.frame(2)$ofile)
+setwd(this.dir)
+
+
 #### Question 1 ####
 # An iteration of Brent's method requires three values a_k, b_k and b_k - 1
 # and calculates a new iterate each time. We start with two values and set 
@@ -172,7 +177,23 @@ newton_raphson(g, gprime, 1)
 # Converged at iteration 9
 
 #### Problem 4 ####
+
+# (a)
 face <- read.csv("face_recog.csv",as.is=TRUE)
 lr <- glm(face$match~face$eyediff,family=binomial,data=face)
+cat(lr$coefficients) #) MLEs
 
-lr$coefficients # MLEs
+# (b)
+# Newton-Raphson using explicit matrix calculations
+nobs <- nrow(face)
+beta <- c(1.0, 0.0)
+
+X <- cbind(rep(1, nobs), face$eyediff)
+for (i in 1:4) {
+  pi <- 1.0 / (1.0 + exp(-as.vector(X %*% beta)))
+  W <- diag(pi * (1 - pi))
+  fac1 <- solve(t(X) %*% W %*% X)
+  fac2 <- t(X) %*% (face$match - pi)
+  beta <- beta + fac1 %*% fac2
+  print(beta)  
+}
