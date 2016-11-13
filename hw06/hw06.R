@@ -6,15 +6,22 @@
 # not work for more complex functions that have sudden, sharp 
 # minima. 
 
-middle_minimum <- function(f, ax, cx) {
+middle_minimum <- function(f, ax, cx, tol = 1e-4) {
   # Find a bx point that is lower than the two endpoints
   bx <- ax + abs(cx - ax)/2 # Halfway point in interval
   fa <- f(ax)
   fb <- f(bx)
   fc <- f(cx)
-  while ((fb >= fc || fb >= fc) &&  # fb greater than two endpoints
-         (abs(bx - ax) > tol || abs(bx - cx) > tol)) # bx not too close to endpoints
+  while (fb >= fc || fb >= fc) # fb greater than two endpoints
   {
+    if (abs(bx - ax) > tol) {
+      cat("Minimum found at lower endpoint")
+      return(ax)
+    } else if (abs(bx - cx) > tol) {
+      cat("Minimum found at upper endpoint")
+      return(cx)
+    }
+    
     # check candidate points to either side of bx 
     bx1 <- bx - abs(bx - ax)/2
     bx2 <- bx + abs(bx - cx)/2
@@ -100,6 +107,7 @@ gss_min <- function(f, ax, cx, tol=1e-4) {
 }
 
 # Test the golden section search. f has a minimum at x = 3
-f <- function(x) (x - 3)^2
+f <- function(x) -(x - 3)^2
 res <- gss_min(f, 0, 5)
-cat("Expected 3, got ", res)
+cat("\nExpected 3, got ", res)
+
