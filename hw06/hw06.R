@@ -14,10 +14,10 @@ middle_minimum <- function(f, ax, cx, tol = 1e-4) {
   fc <- f(cx)
   while (fb >= fc || fb >= fc) # fb greater than two endpoints
   {
-    if (abs(bx - ax) > tol) {
+    if (abs(fb - fa) > tol) {
       cat("Minimum found at lower endpoint")
       return(ax)
-    } else if (abs(bx - cx) > tol) {
+    } else if (abs(fb - fc) > tol) {
       cat("Minimum found at upper endpoint")
       return(cx)
     }
@@ -98,10 +98,10 @@ gss_min <- function(f, ax, cx, tol=1e-4) {
   
   cat("\n Search took ", count, " iterations")
   if (f1 < f2) {
-    cat("\n xmin = ", x1, " , f(xmin) = ", f1)
+    cat("\nxmin = ", x1, ", f(xmin) = ", f1)
     return(x1)
   } else {
-    cat("\n xmin = ", x2, " , f(xmin) = ", f2)
+    cat("\nxmin = ", x2, ", f(xmin) = ", f2)
     return(x2)
   }
 }
@@ -109,5 +109,5 @@ gss_min <- function(f, ax, cx, tol=1e-4) {
 # Test the golden section search. f has a minimum at x = 3
 f <- function(x) -(x - 3)^2
 res <- gss_min(f, 0, 5)
-cat("\nExpected 3, got ", res)
+cat("\nExpected 0, got ", res)
 
