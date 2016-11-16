@@ -109,5 +109,35 @@ gss_min <- function(f, ax, cx, tol=1e-4) {
 # Test the golden section search. f has a minimum at x = 3
 f <- function(x) -(x - 3)^2
 res <- gss_min(f, 0, 5)
-cat("\nExpected 0, got ", res)
+cat("\nExpected 0, got ", res, "\n")
 
+# Problem 3
+# (a)
+f <- function(x) {
+  return(x^4)
+}
+
+integrated_f <- function(x) {
+  return(0.2 * (x ^ 5))
+}
+
+simpson <- function(fun, a, b, n=100) {
+  h <- (b-a)/n
+  x <- seq(a, b, by=h)
+  if (n == 2) {
+    s <- fun(x[1]) + 4*fun(x[2]) +fun(x[3])
+  } else {
+    s <- fun(x[1]) + fun(x[n+1]) + 2*sum(fun(x[seq(2,n,by=2)])) + 4 *sum(fun(x[seq(3,n-1, by=2)]))
+  }
+  s <- s*h/3
+  return(s)
+}
+a <- -1
+b <- 1
+n = 20
+
+res <- simpson(f, a, b, n)
+cat("Simpson Integral result: ", res, "\n")
+cat("Difference between exact integral is ", 0.4 - res, "\n")
+
+# (b)
