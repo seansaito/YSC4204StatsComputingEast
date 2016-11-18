@@ -1,17 +1,18 @@
 # Question 1 - Golden Section Search
 
 # This is a helper function to get a middle that is 
-# lower than two endpoints. It could probably use some 
-# optimization, since it does simple bisection, and may
-# not work for more complex functions that have sudden, sharp 
-# minima. 
+# lower than two endpoints. It evaluates candidate points at
+# the golden ratio on either side, and picks the one with the 
+# lower function value. 
 
 middle_minimum <- function(f, ax, cx, tol = 1e-4) {
+  R <- 0.61803399
   # Find a bx point that is lower than the two endpoints
   bx <- ax + abs(cx - ax)/2 # Halfway point in interval
   fa <- f(ax)
   fb <- f(bx)
   fc <- f(cx)
+  
   while (fb >= fc || fb >= fc) # fb greater than two endpoints
   {
     if (abs(fb - fa) > tol) {
@@ -23,8 +24,8 @@ middle_minimum <- function(f, ax, cx, tol = 1e-4) {
     }
     
     # check candidate points to either side of bx 
-    bx1 <- bx - abs(bx - ax)/2
-    bx2 <- bx + abs(bx - cx)/2
+    bx1 <- bx - abs(bx - ax) * R
+    bx2 <- bx + abs(bx - cx) * R
     if (f(bx1) < f(bx2)) {
       bx <- bx1
     } else {
