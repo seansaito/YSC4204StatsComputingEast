@@ -141,3 +141,20 @@ cat("Simpson Integral result: ", res, "\n")
 cat("Difference between exact integral is ", 0.4 - res, "\n")
 
 # (b)
+abscissae <- c(-0.1488743389816312, 0.1488743389816312, -0.4333953941292472, 0.4333953941292472,
+               -0.6794095682990244, 0.6794095682990244, -0.8650633666889845, 0.8650633666889845,
+               -0.9739065285171717, 0.9739065285171717)
+weights <- c(0.2955242247147529, 0.2955242247147529, 0.2692667193099963, 0.2692667193099963,
+             0.2190863625159820, 0.2190863625159820, 0.1494513491505806, 0.1494513491505806,
+             0.0666713443086881, 0.0666713443086881)
+
+gauss_legendre <- function(f) {
+  return(sum(f(abscissae) * weights))
+}
+
+res <- gauss_legendre(f)
+cat("Gaussian-Legendre quadrature result: ", res, "\n")
+# Therefore the Gauss-Legendre quadrature approximates the intergral much more accurately
+# than Simpson at the given points for evaluating the integrand. If we increase the number of
+# points that the Simpson quadrature evaluates (say from 20 to 20000), then the approximation
+# will improve.
