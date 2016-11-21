@@ -1,4 +1,4 @@
-# Question 1 - Golden Section Search
+#### Question 1 - Golden Section Search ####
 
 # This is a helper function to get a middle that is 
 # lower than two endpoints. It evaluates candidate points at
@@ -49,7 +49,7 @@ gss_min <- function(f, ax, cx, tol=1e-4) {
   fc <- f(cx)
   while ((fb >= fc || fb >= fc) &&  # fb greater than two endpoints
          (abs(bx - ax) > tol || abs(bx - cx) > tol)) # bx not too close to endpoints
-    {
+  {
     # check candidate points to either side of bx 
     bx1 <- bx - abs(bx - ax)/2
     bx2 <- bx + abs(bx - cx)/2
@@ -112,7 +112,21 @@ f <- function(x) -(x - 3)^2
 res <- gss_min(f, 0, 5)
 cat("\nExpected 0, got ", res, "\n")
 
-# Problem 3
+#### Problem 2 ####
+g <- function(x) {
+  if(x[1] <= 0) {
+    val <- -360 * x[1]^2 - x[2] - x[2]^2
+  } else {
+    val <- -6 * x[1]^2 - x[2] - x[2]^2
+  }
+  cat("evaluating g at x1 = ", x[1], ", x2 = ", x[2],
+      ", g = ", val, "\n", sep = "")
+  return(val)
+}
+o <- optim(c(1, 0), function(x) -g(x),
+           control = list(trace = 1, maxit = 13))
+
+#### Problem 3 ####
 # (a)
 f <- function(x) {
   return(x^4)
@@ -122,20 +136,19 @@ integrated_f <- function(x) {
   return(0.2 * (x ^ 5))
 }
 
-simpson <- function(fun, a, b, n=100) {
+simpson <- function(fun,a,b,n=100){
   h <- (b-a)/n
-  x <- seq(a, b, by=h)
-  if (n == 2) {
-    s <- fun(x[1]) + 4*fun(x[2]) +fun(x[3])
+  if(n==2){
+    return((b-a)/6 * (fun(a)+4*fun((a+b)/2)+fun(b)))
   } else {
-    s <- fun(x[1]) + fun(x[n+1]) + 2*sum(fun(x[seq(2,n,by=2)])) + 4 *sum(fun(x[seq(3,n-1, by=2)]))
+  s <- fun(a)+4*sum(fun(a+h*seq(1,n,by=2)))+2*sum(fun(a+h*seq(2,n-1,by=2)))+fun(b)
   }
-  s <- s*h/3
-  return(s)
+  return(s*h/3)
 }
+
 a <- -1
 b <- 1
-n = 20
+n <- 10
 
 res <- simpson(f, a, b, n)
 cat("Simpson Integral result: ", res, "\n")
