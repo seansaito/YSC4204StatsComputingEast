@@ -1,29 +1,35 @@
 #### Question 1 - Golden Section Search ####
 
-# This is a helper function to get a middle that is 
-# lower than two endpoints. It evaluates candidate points at
-# the golden ratio on either side, and picks the one with the 
-# lower function value. 
-
-middle_minimum <- function(f, ax, cx, tol = 1e-4) {
+# Mostly a simple translation from Numerical Recipes. 
+gss_min <- function(f, ax, cx, tol=1e-4) {
   R <- 0.61803399
+  C <- 1-R
+  count <- 0
+  
   # Find a bx point that is lower than the two endpoints
-  bx <- ax + abs(cx - ax)/2 # Halfway point in interval
+  
+  bx <- ax + abs(cx - ax) * R # Golden section ratio away from lower endpoint
+  
   fa <- f(ax)
   fb <- f(bx)
   fc <- f(cx)
   
-  while (fb >= fc || fb >= fc) # fb greater than two endpoints
+  while (fb >= fc || fb >= fa) # fb greater than two endpoints
   {
+    count <- count + 1
     if (abs(fb - fa) > tol) {
-      cat("Minimum found at lower endpoint")
+      cat("Search took ", count, "iterations")
+      cat("\nxmin = ", ax, ", f(xmin) = ", fa)
+      cat("\nMinimum found at lower endpoint")
       return(ax)
     } else if (abs(fb - fc) > tol) {
-      cat("Minimum found at upper endpoint")
+      cat("Search took ", count, "iterations")
+      cat("\nxmin = ", ax, ", f(xmin) = ", fa)
+      cat("\nMinimum found at upper endpoint")
       return(cx)
     }
     
-    # check candidate points to either side of bx 
+    # check candidate points to either side of bx, pick one with lower f(x)
     bx1 <- bx - abs(bx - ax) * R
     bx2 <- bx + abs(bx - cx) * R
     if (f(bx1) < f(bx2)) {
@@ -33,20 +39,7 @@ middle_minimum <- function(f, ax, cx, tol = 1e-4) {
     }
     fb <- f(bx)
   }
-  return(bx)
-}
 
-# Mostly a simple translation from Numerical Recipes. 
-gss_min <- function(f, ax, cx, tol=1e-4) {
-  R <- 0.61803399
-  C <- 1-R
-  count <- 0
-  
-  # Find a bx point that is lower than the two endpoints
-  bx <- middle_minimum(f, ax, cx)
-  fa <- f(ax)
-  fb <- f(bx)
-  fc <- f(cx)
   while ((fb >= fc || fb >= fc) &&  # fb greater than two endpoints
          (abs(bx - ax) > tol || abs(bx - cx) > tol)) # bx not too close to endpoints
   {
@@ -108,7 +101,7 @@ gss_min <- function(f, ax, cx, tol=1e-4) {
 }
 
 # Test the golden section search. f has a minimum at x = 3
-f <- function(x) -(x - 3)^2
+f <- function(x) (x - 2)^2
 res <- gss_min(f, 0, 5)
 cat("\nExpected 0, got ", res, "\n")
 
